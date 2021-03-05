@@ -11,6 +11,7 @@ class Hero extends React.Component{
     super();
     
     this.state = {
+      api: "https://reception-registration-backend.herokuapp.com",
       search: "",
       rsvp: [],
       searchList: []
@@ -19,7 +20,7 @@ class Hero extends React.Component{
 
   async componentDidMount() {
     this.setState({
-      rsvp: await fetch("http://localhost:4000").then(o => o.json())
+      rsvp: await fetch(this.state.api).then(o => o.json())
     })
     
     setInterval(() => {
@@ -58,7 +59,7 @@ class Hero extends React.Component{
   }
 
   checkin = async g => {
-    await fetch("http://localhost:4000/checkin", {
+    await fetch(`${this.state.api}/checkin`, {
       method: "POST",
       headers:{
         "content-type": "application/json; charset=utf-8"
